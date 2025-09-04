@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Backend for EduManage",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "npm run start"
+    "start": "node index.js"
   },
   "keywords": [
     "node",
