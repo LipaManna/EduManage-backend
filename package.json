@@ -1,0 +1,19 @@
+{
+  "name": "edumanage-backend",
+  "version": "1.0.0",
+  "description": "Backend for EduManage",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start"
+  },
+  "keywords": [
+    "node",
+    "edumanage"
+  ],
+  "author": "Lipa",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0"
+  }
+}
