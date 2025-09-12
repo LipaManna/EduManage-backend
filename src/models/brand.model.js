@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { generateUniqueCode } from '../utils/UniqueCodeGenerator.js';
 
-const organizationSchema = new Schema({
+const brandSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -15,13 +15,21 @@ const organizationSchema = new Schema({
     },
     type: {
         type: String,
-        enum: ['school', 'college', 'university', 'training_institute'],
-        default: 'school',
-        required: true
+        enum: ['campus', 'department', 'course', 'franchise'],
+        default: 'department',
     },
     description: {
         type: String,
     },
+    logo: {
+        type: String, //Cloudnary URL
+    },
+    coverImage: {
+        type: String, //Cloudnary URL
+    },
+    // theme:{
+    //     type: Object,
+    // },
     contact: {
         email: {
             type: String,
@@ -49,51 +57,32 @@ const organizationSchema = new Schema({
                 type: String,
             }
         }
-    },
-    affiliation: {
-        type: String,
-    },
-    registrationNumber: {
-        type: String,
-        unique: true
-    },
-    foundedYear: {
-        type: Number,
-    },
-    accreditation: {
-        type: String,
-    },
-    logo: {
-        type: String, //Cloudnary URL
-    },
-    // theme:{
-    //     type: Object
+    }, 
+    // settings: {
+    //     type: mongoose.Schema.Types.Mixed,
+    //     default: {}
     // },
+
     status: {
         type: String,
-        enum: ['active', 'inactive', 'pending', 'suspended'],
-        default: 'pending'
+        enum: ["active", "inactive", "archived"],
+        default: "active"
     },
-    //     settings: {
-    //     type: mongoose.Schema.Types.Mixed, // for dynamic configs
-    //     default: {}
-    //   },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    updatedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    foundedYear: { type: Number },
+    affiliation: { type: String },
+
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 }, { timestamps: true });
 
-organizationSchema.pre('save', function (next){
-    if(this.isNew && !this.registrationNumber){
+brandSchema.pre('save', function (next) {
+    if(this.isNew && !this.code){
         const abbr = this.name.substring(0,3).toUpperCase();
-        this.registrationNumber = generateUniqueCode(abbr,8)
+        this.code = generateUniqueCode(abbr, 6)
     }
+
     next();
 })
 
-export default mongoose.model('organization', organizationSchema)
+
+export default mongoose.model('brand', brandSchema)

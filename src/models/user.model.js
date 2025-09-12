@@ -39,6 +39,25 @@ const userSchema = new Schema({
     refreshToken: {
         type: String,
     },
+    role:{
+        type: String,
+        enum: ['admin','instructor', 'student'],
+        default: 'student'
+    },
+    isActive:{
+        type: Boolean,
+        default: true
+    },
+    phone:{
+        type: String,
+    },
+    dob:{
+        type: Date
+    },
+    gender:{
+        type: String,
+        enum: ['male','female','other']
+    }
 },
     {
         timestamps: true,
