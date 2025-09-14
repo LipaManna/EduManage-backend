@@ -24,7 +24,7 @@ const brandSchema = new Schema({
     logo: {
         type: String, //Cloudnary URL
     },
-    coverImage: {
+    cover_image: {
         type: String, //Cloudnary URL
     },
     // theme:{
@@ -37,7 +37,7 @@ const brandSchema = new Schema({
         phone: {
             type: String,
         },
-        websiteURL: {
+        website_url: {
             type: String,
         },
         address: {
@@ -68,11 +68,11 @@ const brandSchema = new Schema({
         enum: ["active", "inactive", "archived"],
         default: "active"
     },
-    foundedYear: { type: Number },
+    founded_year: { type: Number },
     affiliation: { type: String },
 
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    created_by: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    updated_by: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 }, { timestamps: true });
 
 brandSchema.pre('save', function (next) {

@@ -53,11 +53,11 @@ const organizationSchema = new Schema({
     affiliation: {
         type: String,
     },
-    registrationNumber: {
+    registration_number: {
         type: String,
         unique: true
     },
-    foundedYear: {
+    founded_year: {
         type: Number,
     },
     accreditation: {
@@ -78,20 +78,20 @@ const organizationSchema = new Schema({
     //     type: mongoose.Schema.Types.Mixed, // for dynamic configs
     //     default: {}
     //   },
-    createdBy: {
+    created_by: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    updatedBy: {
+    updated_by: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
 }, { timestamps: true });
 
 organizationSchema.pre('save', function (next){
-    if(this.isNew && !this.registrationNumber){
+    if(this.isNew && !this.registration_number){
         const abbr = this.name.substring(0,3).toUpperCase();
-        this.registrationNumber = generateUniqueCode(abbr,8)
+        this.registration_number = generateUniqueCode(abbr,8)
     }
     next();
 })

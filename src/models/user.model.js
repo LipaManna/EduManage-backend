@@ -3,7 +3,11 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const userSchema = new Schema({
-    userName: {
+    auth_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        default: this._id
+    },
+    user_name: {
         type: String,
         required: true,
         unique: true,
@@ -18,7 +22,7 @@ const userSchema = new Schema({
         lowercase: true,
         trim: true,
     },
-    fullName: {
+    full_name: {
         type: String,
         required: true,
         trim: true,
@@ -26,27 +30,20 @@ const userSchema = new Schema({
     },
     avatar: {
         type: String, //Cloudnary URL
-        required: true
     },
-    coverImage: {
+    cover_image: {
         type: String, //Cloudnary URL
-        required: false
     },
     password: {
         type: String,
         required: [true, 'Password is required']
     },
-    refreshToken: {
+    refresh_token: {
         type: String,
     },
-    role:{
-        type: String,
-        enum: ['admin','instructor', 'student'],
-        default: 'student'
-    },
-    isActive:{
+    is_active:{
         type: Boolean,
-        default: true
+        default: false
     },
     phone:{
         type: String,
@@ -77,7 +74,7 @@ userSchema.methods.generateAccessToken = function () {
     jwt.sign({
         payload: {
             _id: this._id,
-            userName: this.userName,
+            user_name: this.user_name,
             email: this.email,
         }
     },
